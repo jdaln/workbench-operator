@@ -1,3 +1,5 @@
+# Add some properties somewhere but the problem is that we need a CRD since each workspace will have its own allow/denylist
+
 # JuiceFS configuration
 juicefs:
   secretName: juicefs-secret
@@ -10,6 +12,16 @@ nfs:
 
 workbench:
   priorityClassName: low-priority
+  # Default resource requirements for the xpra server container.
+  # When empty, no resources are set. Can be overridden per-workbench via spec.server.resources.
+  # serverResources:
+  #   limits:
+  #     cpu: 1000m
+  #     memory: 512Mi
+  #   requests:
+  #     cpu: 100m
+  #     memory: 256Mi
+  serverResources: {}
 
 application:
   priorityClassName: preemptible
@@ -33,7 +45,7 @@ controllerManager:
         - ALL
     image:
       repository: harbor.build.chorus-tre.local/chorus/workbench-operator
-      tag: 0.4.5
+      tag: 0.4.14
     resources:
       limits:
         cpu: 500m
